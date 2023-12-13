@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 const SongItem = ({song}) => {
     return(
         <>
@@ -13,5 +14,16 @@ const SongItem = ({song}) => {
         </>
     )
 }
+
+SongItem.propTypes = {
+    song: PropTypes.shape({
+      title: PropTypes.string.isRequired,
+      composer: PropTypes.string.isRequired,
+      origin: PropTypes.string.isRequired,
+      start: PropTypes.string.isRequired,
+      length: PropTypes.string.isRequired,
+      comments: PropTypes.string.isRequired,
+    }).isRequired,
+  };
 
 export default SongItem

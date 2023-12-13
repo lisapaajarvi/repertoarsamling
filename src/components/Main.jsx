@@ -1,11 +1,12 @@
-import { useState } from "react";
+import { useContext } from "react";
 import SongItem from "./SongItem";
+import { SongContext } from "../contexts/songContext";
 
 const Main = () => {
-    const songsFromApi = [{"title":"Jul jul", "composer": "H M", "origin": "Lösa noter på drive", "start": "A, C, E", "length": "1:25", "comments": "En klassiker som folk gillar!"}, {"title":"Jul jul", "composer": "H M", "origin": "Lösa noter på drive", "start": "A, C, E", "length": "1:25", "comments": "En klassiker som folk gillar!"}] 
-
-    const [songs, setSongs] = useState(songsFromApi)
-
+    const { songs } = useContext(SongContext);
+    const handleClick = () => {
+        
+    }
     return(
         <main className="h-[calc(100vh-6rem)] bg-emerald-100">
             <div className="container mx-auto px-4">
@@ -20,7 +21,7 @@ const Main = () => {
                 </div>
                 <section>
                     {songs.map((song, index)=> {
-                        return <div key={index} className="bg-white even:bg-gray-200 flex my-2">
+                        return <div key={index} className="bg-white even:bg-gray-200 flex my-2 p-2" onClick={(e)=> handleClick(e)}>
                             <SongItem song={song}/>
                         </div>
                     })}
