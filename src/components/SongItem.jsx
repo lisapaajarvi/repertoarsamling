@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-const SongItem = ({ song }) => {
+const SongItem = ({ song, bgColor }) => {
   return (
     <>
       <h3 className="w-1/6">{song.title}</h3>
@@ -11,7 +11,9 @@ const SongItem = ({ song }) => {
       </div>
 
       <p className="w-1/6">{song.comments}</p>
-      <p className="w-1/6">{song.category}</p>
+      <p className="w-1/6" style={{ backgroundColor: `${bgColor}` }}>
+        {song.category}
+      </p>
     </>
   );
 };
@@ -26,6 +28,7 @@ SongItem.propTypes = {
     comments: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
   }).isRequired,
+  bgColor: PropTypes.string.isRequired,
 };
 
 export default SongItem;

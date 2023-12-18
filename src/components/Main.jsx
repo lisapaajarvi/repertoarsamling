@@ -25,11 +25,11 @@ const Main = () => {
   };
 
   const categories = [
-    { name: "Jul", bgColor: "bg-red-400" },
-    { name: "Sakralt", bgColor: "bg-green-400" },
-    { name: "Film/tv/spel", bgColor: "bg-blue-400" },
-    { name: "Folkligt", bgColor: "bg-yellow-400" },
-    { name: "Klassiskt", bgColor: "bg-pink-400" },
+    { name: "Jul", bgColor: "red" },
+    { name: "Sakralt", bgColor: "green" },
+    { name: "Film/tv/spel", bgColor: "blue" },
+    { name: "Folkligt", bgColor: "yellow" },
+    { name: "Klassiskt", bgColor: "purple" },
   ];
 
   return (
@@ -45,6 +45,7 @@ const Main = () => {
               <div
                 key={index}
                 className="rounded-md w-40 p-8 bg-red-400 flex align-center justify-center"
+                style={{ backgroundColor: `${cat.bgColor}` }}
               >
                 {cat.name}
               </div>
@@ -62,13 +63,17 @@ const Main = () => {
         </div>
         <section>
           {songs.map((song, index) => {
+            const bgColor = () => {
+              const cat = categories.find(({ name }) => name === song.category);
+              return cat.bgColor;
+            };
             return (
               <div
                 key={index}
                 className="bg-white even:bg-gray-200 flex my-2 p-2"
                 onClick={() => handleClick(song)}
               >
-                <SongItem song={song} />
+                <SongItem song={song} bgColor={bgColor()} />
               </div>
             );
           })}
