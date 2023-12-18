@@ -8,7 +8,7 @@ import Fuse from "fuse.js";
 const fuseOptions = {
   shouldSort: true,
   threshold: 0.4,
-  minMatchCharLength: 2,
+  minMatchCharLength: 3,
   keys: ["title", "composer", "comments"],
 };
 
