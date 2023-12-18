@@ -1,4 +1,4 @@
-import { Button, Label, Modal, TextInput } from "flowbite-react";
+import { Button, Label, Modal, TextInput, Select } from "flowbite-react";
 import { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import { SongContext } from "../contexts/songContext";
@@ -10,6 +10,7 @@ const blankSong = {
   length: "",
   origin: "",
   comments: "",
+  category: "",
 };
 
 const AddSongModal = (props) => {
@@ -129,6 +130,24 @@ const AddSongModal = (props) => {
                 value={songDetails.comments}
                 onChange={(e) => handleInputChange(e)}
               />
+            </div>
+            <div className="max-w-md">
+              <div className="mb-2 block">
+                <Label htmlFor="category" value="Välj kategori" />
+              </div>
+              <Select
+                id="category"
+                value={songDetails.category}
+                onChange={(e) => handleInputChange(e)}
+                required
+              >
+                <option>Okategoriserad</option>
+                <option>Jul</option>
+                <option>Sakralt</option>
+                <option>Film/tv/spel</option>
+                <option>Folkligt</option>
+                <option>Klassiskt</option>
+              </Select>
             </div>
 
             <div className="w-full">

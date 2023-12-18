@@ -8,7 +8,10 @@ const Main = () => {
   const { songs } = useContext(SongContext);
   const [openModal, setOpenModal] = useState(false);
   const [editingContent, setEditingContent] = useState(null);
-  const songCount = songs.length;
+  const [categoryFilter, setCategoryFilter] = useState("Alla");
+  const [filteredSongs, setFilteredSongs] = useState(songs);
+  const songCount = filteredSongs.length;
+
   const handleClick = (song) => {
     setEditingContent(song);
   };
@@ -18,6 +21,16 @@ const Main = () => {
       setOpenModal(true);
     }
   }, [editingContent]);
+
+  useEffect(() => {
+    const applyFilter = () => {
+      if (categoryFilter === "Alla") {
+        return songs;
+      }
+      return songs.filter((song) => song.category === categoryFilter);
+    };
+    setFilteredSongs(applyFilter());
+  }, [categoryFilter, songs]);
 
   const onCloseModal = () => {
     setOpenModal(false);
@@ -31,6 +44,9 @@ const Main = () => {
     { name: "Folkligt", bgColor: "yellow" },
     { name: "Klassiskt", bgColor: "purple" },
   ];
+
+  console.log(categoryFilter);
+  console.log(filteredSongs);
 
   return (
     <main className="min-h-[calc(100vh-6rem)] bg-emerald-100">
@@ -46,8 +62,9 @@ const Main = () => {
                 key={index}
                 className="rounded-md w-40 p-8 bg-red-400 flex align-center justify-center"
                 style={{ backgroundColor: `${cat.bgColor}` }}
+                onClick={() => setCategoryFilter(cat.name)}
               >
-                {cat.name}
+                <p className="text-3xl">{cat.name}</p>
               </div>
             );
           })}
@@ -62,7 +79,7 @@ const Main = () => {
           <p className="col-span-2">Kategori</p>
         </div>
         <section>
-          {songs.map((song, index) => {
+          {filteredSongs.map((song, index) => {
             const bgColor = () => {
               const cat = categories.find(({ name }) => name === song.category);
               return cat.bgColor;
