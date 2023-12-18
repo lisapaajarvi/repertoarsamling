@@ -11,6 +11,7 @@ import {
 
 export const SongContext = createContext({
   songs: [],
+  lists: [],
   addSong: () => {
     console.warn("NO PROVIDER FOUND");
   },
@@ -21,11 +22,23 @@ export const SongContext = createContext({
 
 function SongProvider({ children }) {
   const [songs, setSongs] = useState([]);
-  const dbCollection = collection(db, "songs");
+  const [lists, setLists] = useState([]);
+  const songCollection = collection(db, "songs");
+  const listCollection = collection(db, "lists");
 
   const getSongs = async () => {
-    getDocs(dbCollection).then((data) => {
+    getDocs(songCollection).then((data) => {
       setSongs(
+        data.docs.map((item) => {
+          return { ...item.data(), id: item.id };
+        })
+      );
+    });
+  };
+
+  const getLists = async () => {
+    getDocs(listCollection).then((data) => {
+      setLists(
         data.docs.map((item) => {
           return { ...item.data(), id: item.id };
         })
@@ -35,11 +48,12 @@ function SongProvider({ children }) {
 
   useEffect(() => {
     getSongs();
+    getLists();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const addSong = (newSong) => {
-    addDoc(dbCollection, {
+    addDoc(songCollection, {
       ...newSong,
     }).then(() => {
       setSongs((prevState) => [...prevState, newSong]);
@@ -54,7 +68,7 @@ function SongProvider({ children }) {
   };
 
   return (
-    <SongContext.Provider value={{ songs, addSong, editSong }}>
+    <SongContext.Provider value={{ songs, lists, addSong, editSong }}>
       {children}
     </SongContext.Provider>
   );
