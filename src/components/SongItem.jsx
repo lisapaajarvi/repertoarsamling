@@ -11,9 +11,13 @@ const SongItem = ({ song, bgColor }) => {
       </div>
 
       <p className="w-1/6">{song.comments}</p>
-      <p className="w-1/6" style={{ backgroundColor: `${bgColor}` }}>
-        {song.category}
-      </p>
+      <div className="w-1/6 flex justify-around items-center">
+        <p>{song.category}</p>
+        <div
+          className="rounded-full h-8 w-8"
+          style={{ backgroundColor: `${bgColor}` }}
+        ></div>
+      </div>
     </>
   );
 };

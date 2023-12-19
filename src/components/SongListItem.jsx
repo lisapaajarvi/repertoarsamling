@@ -13,7 +13,7 @@ const SongListItem = ({ list }) => {
 SongListItem.propTypes = {
   list: PropTypes.shape({
     title: PropTypes.string.isRequired,
-    createdAt: PropTypes.string.isRequired,
+    createdAt: PropTypes.object,
   }),
 };
 
