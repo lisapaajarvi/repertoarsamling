@@ -22,9 +22,7 @@ export const SongContext = createContext({
 
 function SongProvider({ children }) {
   const [songs, setSongs] = useState([]);
-  const [lists, setLists] = useState([]);
   const songCollection = collection(db, "songs");
-  const listCollection = collection(db, "lists");
 
   const getSongs = async () => {
     getDocs(songCollection).then((data) => {
@@ -36,23 +34,12 @@ function SongProvider({ children }) {
     });
   };
 
-  const getLists = async () => {
-    getDocs(listCollection).then((data) => {
-      setLists(
-        data.docs.map((item) => {
-          return { ...item.data(), id: item.id };
-        })
-      );
-    });
-  };
-
   useEffect(() => {
     getSongs();
-    getLists();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const addSong = (newSong) => {
+  const addSong = async (newSong) => {
     addDoc(songCollection, {
       ...newSong,
     }).then(() => {
@@ -60,7 +47,7 @@ function SongProvider({ children }) {
     });
   };
 
-  const editSong = (songToEdit) => {
+  const editSong = async (songToEdit) => {
     const dbDocument = doc(db, "songs", songToEdit.id);
     updateDoc(dbDocument, songToEdit).then(() => {
       getSongs();
@@ -68,7 +55,7 @@ function SongProvider({ children }) {
   };
 
   return (
-    <SongContext.Provider value={{ songs, lists, addSong, editSong }}>
+    <SongContext.Provider value={{ songs, addSong, editSong }}>
       {children}
     </SongContext.Provider>
   );
