@@ -5,7 +5,7 @@ const Header = () => {
     { title: "Listor", link: "/listor" },
   ];
   return (
-    <header className="flex justify-around items-center bg-gradient-to-r from-green-400 to-blue-500 text-white h-24">
+    <header className="flex justify-around items-center bg-gradient-to-r from-emerald-400 to-purple-500 text-white h-24">
       <h1 className="text-3xl drop-shadow-md">Titanias repertoarlista</h1>
 
       <nav>
