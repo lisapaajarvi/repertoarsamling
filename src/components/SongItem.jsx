@@ -14,12 +14,13 @@ const SongItem = ({ song, bgColor, handleClick }) => {
       </div>
 
       <p className="w-1/6">{song.comments}</p>
-      <div className="w-1/6 flex justify-around items-center">
-        <p>{song.category}</p>
+      <div className="w-1/12 flex justify-around items-center">
         <div
-          className="rounded-full h-8 w-8"
+          className="rounded-full h-8 w-8 flex justify-center items-center text-white"
           style={{ backgroundColor: `${bgColor}` }}
-        ></div>
+        >
+          {song.category.substring(0, 1)}
+        </div>
       </div>
     </div>
   );

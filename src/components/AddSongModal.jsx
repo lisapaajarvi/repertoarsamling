@@ -2,6 +2,7 @@ import { Button, Label, Modal, TextInput, Select } from "flowbite-react";
 import { useState, useContext, useEffect } from "react";
 import PropTypes from "prop-types";
 import { SongContext } from "../contexts/songContext";
+import { categories } from "../lib/categories";
 
 const blankSong = {
   title: "",
@@ -141,12 +142,9 @@ const AddSongModal = (props) => {
                 onChange={(e) => handleInputChange(e)}
                 required
               >
-                <option>Okategoriserad</option>
-                <option>Jul</option>
-                <option>Sakralt</option>
-                <option>Film/tv/spel</option>
-                <option>Folkligt</option>
-                <option>Klassiskt</option>
+                {categories.map((cat, index) => {
+                  return <option key={index}>{cat.name}</option>;
+                })}
               </Select>
             </div>
 
