@@ -1,19 +1,21 @@
 import { useContext, useState } from "react";
 import { ListContext } from "../contexts/listContext";
 import { SongContext } from "../contexts/songContext";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import { Button, TextInput } from "flowbite-react";
 import fuseSearch from "../lib/fuseSearch";
 import SongToList from "./SongToList";
 import { categories } from "../lib/categories";
 import PropTypes from "prop-types";
 
-const ListForm = (props) => {
+const ListForm = ({ setEditing }) => {
   const { addList } = useContext(ListContext);
   const { songs } = useContext(SongContext);
   const [listTitle, setListTitle] = useState("");
   const [listSongs, setListSongs] = useState([]);
   const [filteredSongs, setFilteredSongs] = useState(songs);
   const [searchQuery, setSearchQuery] = useState("");
+  const [openDeleteModal, setOpenDeleteModal] = useState(false);
 
   const handleSearch = () => {
     if (searchQuery.length > 2) {
@@ -23,15 +25,37 @@ const ListForm = (props) => {
     }
   };
 
-  const addSongToList = (newSong) => {
-    setListSongs((prevState) => [...prevState, newSong]);
-    console.log(listSongs);
+  const addOrRemoveSong = (song) => {
+    if (isInList(song)) {
+      removeSongFromList(song);
+    } else {
+      addSongToList(song);
+    }
+  };
+
+  const addSongToList = (song) => {
+    setListSongs((prevState) => [...prevState, song]);
   };
 
   const removeSongFromList = (song) => {
     const list = listSongs.filter((item) => item.id !== song.id);
     setListSongs(list);
-    console.log(listSongs);
+  };
+
+  const isInList = (song) => {
+    const inList = listSongs.find((item) => item.id === song.id);
+    if (inList !== undefined) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  const emptyListState = () => {
+    setListTitle("");
+    setListSongs([]);
+    setOpenDeleteModal(false);
+    setEditing(false);
   };
 
   const handleSubmit = () => {
@@ -43,9 +67,7 @@ const ListForm = (props) => {
       createdAt: createdAt,
     };
     addList(newList);
-    setListTitle("");
-    setListSongs([]);
-    props.setEditing(false);
+    emptyListState();
   };
 
   return (
@@ -61,6 +83,7 @@ const ListForm = (props) => {
             required
           />
         </div>
+
         {listSongs.map((song, index) => {
           return (
             <p key={index} onClick={() => removeSongFromList(song)}>
@@ -78,6 +101,8 @@ const ListForm = (props) => {
           />
           <Button onClick={handleSearch}>Sök</Button>
         </div>
+        <Button onClick={handleSubmit}>{"Spara lista"}</Button>
+        <Button onClick={() => setOpenDeleteModal(true)}>Avbryt</Button>
         <section>
           {filteredSongs.map((song, index) => {
             const bgColor = () => {
@@ -90,14 +115,18 @@ const ListForm = (props) => {
                 song={song}
                 bgColor={bgColor()}
                 key={index}
-                addSongToList={addSongToList}
+                addOrRemoveSong={addOrRemoveSong}
+                isInList={isInList(song)}
               />
             );
           })}
         </section>
-
-        <Button onClick={handleSubmit}>{"Spara lista"}</Button>
       </div>
+      <DeleteConfirmationModal
+        openModal={openDeleteModal}
+        setOpenModal={setOpenDeleteModal}
+        cancelList={emptyListState}
+      />
     </main>
   );
 };
