@@ -1,8 +1,23 @@
-# React + Vite
+# Song repertoire documentation system
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+for the vocal trio titania
 
-Currently, two official plugins are available:
+- React + Vite
+- Firebase
+- TailwindCSS and Flowbite React for styling
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## TODO
+
+### General:
+
+- [ ] Color theme
+- [ ] Adjustments for mobile
+- [ ] Login
+
+### List functionality:
+
+- [ ] Display total length of list
+- [ ] Edit lists and print / save as pdf
+- [ ] Sort lists in accordion (based on year?)
+- [ ] Create new list based on existing list
+- [ ] Add comments to lists
