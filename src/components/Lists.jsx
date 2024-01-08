@@ -2,12 +2,25 @@ import { useContext, useState } from "react";
 import { ListContext } from "../contexts/listContext";
 import SongListItem from "./SongListItem";
 import ListForm from "./ListForm";
+import SongListModal from "./SongListModal";
 import { Button } from "flowbite-react";
 
 const Lists = () => {
   const { lists } = useContext(ListContext);
   const [editing, setEditing] = useState(false);
-  console.log(lists);
+  const [viewing, setViewing] = useState(false);
+  const [currentList, setCurrentList] = useState(null);
+
+  const handleClick = (list) => {
+    console.log("test i funktion", list);
+    setCurrentList(list);
+    setViewing(true);
+  };
+
+  const closeModal = () => {
+    setCurrentList(null);
+    setViewing(false);
+  };
 
   return (
     <main className="min-h-[calc(100vh-6rem)] bg-emerald-100">
@@ -22,6 +35,7 @@ const Lists = () => {
               return (
                 <div
                   key={index}
+                  onClick={() => handleClick(list)}
                   className="bg-white even:bg-gray-200 flex my-2 p-2"
                 >
                   <SongListItem list={list} />
@@ -31,6 +45,11 @@ const Lists = () => {
           </>
         )}
       </div>
+      <SongListModal
+        openModal={viewing}
+        closeModal={closeModal}
+        currentList={currentList}
+      />
     </main>
   );
 };
