@@ -12,11 +12,13 @@ for the vocal trio titania
 
 - [ ] Color theme
 - [ ] Adjustments for mobile
-- [ ] Login
+- [ ] Login page
+- [ ] Error handling
+- [ ] Toasts for saving/adding/removing songs and lists
 
 ### List functionality:
 
-- [ ] Display total length of list
+- [x] Display total length of list
 - [ ] Edit lists and print / save as pdf
 - [ ] Sort lists in accordion (based on year?)
 - [ ] Create new list based on existing list

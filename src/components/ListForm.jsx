@@ -7,6 +7,7 @@ import fuseSearch from "../lib/fuseSearch";
 import SongToList from "./SongToList";
 import { categories } from "../lib/categories";
 import PropTypes from "prop-types";
+import { HiSearch } from "react-icons/hi";
 
 const ListForm = ({ setEditing }) => {
   const { addList } = useContext(ListContext);
@@ -99,10 +100,22 @@ const ListForm = ({ setEditing }) => {
             onChange={(e) => setSearchQuery(e.target.value)}
             sizing="md"
           />
-          <Button onClick={handleSearch}>Sök</Button>
+          <Button gradientDuoTone="purpleToPink" onClick={handleSearch}>
+            <HiSearch className="h-6 w-6" />
+          </Button>
         </div>
-        <Button onClick={handleSubmit}>{"Spara lista"}</Button>
-        <Button onClick={() => setOpenDeleteModal(true)}>Avbryt</Button>
+        <div className="flex gap-4">
+          <Button gradientDuoTone="purpleToPink" onClick={handleSubmit}>
+            {"Spara lista"}
+          </Button>
+          <Button
+            gradientDuoTone="purpleToPink"
+            outline
+            onClick={() => setOpenDeleteModal(true)}
+          >
+            Avbryt
+          </Button>
+        </div>
         <section>
           {filteredSongs.map((song, index) => {
             const bgColor = () => {

@@ -4,6 +4,7 @@ import SongListItem from "./SongListItem";
 import ListForm from "./ListForm";
 import SongListModal from "./SongListModal";
 import { Button } from "flowbite-react";
+import { HiOutlinePlus } from "react-icons/hi";
 
 const Lists = () => {
   const { lists } = useContext(ListContext);
@@ -29,14 +30,25 @@ const Lists = () => {
           <ListForm setEditing={setEditing} />
         ) : (
           <>
-            <Button onClick={() => setEditing(true)}>Skapa ny lista</Button>
-            <h2>Repertoarlistor</h2>
+            <div className="flex justify-between align-center">
+              <h2 className="text-xl">Repertoarlistor</h2>
+              <Button
+                gradientDuoTone="purpleToPink"
+                className="shadow-md hover:shadow-xl float-right"
+                onClick={() => setEditing(true)}
+              >
+                <div className="flex flex-col items-center justify-center">
+                  <HiOutlinePlus className="h-10 w-10" />
+                  Skapa ny lista
+                </div>
+              </Button>
+            </div>
             {lists.map((list, index) => {
               return (
                 <div
                   key={index}
                   onClick={() => handleClick(list)}
-                  className="bg-white even:bg-gray-200 flex my-2 p-2"
+                  className="bg-white even:bg-gray-200 flex justify-between my-2 p-2"
                 >
                   <SongListItem list={list} />
                 </div>

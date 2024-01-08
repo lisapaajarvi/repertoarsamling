@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 const SongListItem = ({ list }) => {
   return (
     <>
-      <h3 className="w-1/6">{list.title}</h3>
-      <p className="w-1/6">{list.createdAt}</p>
+      <p className="font-bold">{list.title}</p>
+      <p>{list.createdAt}</p>
     </>
   );
 };
