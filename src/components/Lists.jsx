@@ -13,7 +13,6 @@ const Lists = () => {
   const [currentList, setCurrentList] = useState(null);
 
   const handleClick = (list) => {
-    console.log("test i funktion", list);
     setCurrentList(list);
     setViewing(true);
   };

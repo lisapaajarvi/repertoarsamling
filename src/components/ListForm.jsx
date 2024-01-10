@@ -60,15 +60,17 @@ const ListForm = ({ setEditing }) => {
   };
 
   const handleSubmit = () => {
-    const today = new Date();
-    const createdAt = today.toLocaleDateString();
-    const newList = {
-      title: listTitle,
-      songs: listSongs,
-      createdAt: createdAt,
-    };
-    addList(newList);
-    emptyListState();
+    if (listTitle != "" && listSongs.length) {
+      const today = new Date();
+      const createdAt = today.toLocaleDateString();
+      const newList = {
+        title: listTitle,
+        songs: listSongs,
+        createdAt: createdAt,
+      };
+      addList(newList);
+      emptyListState();
+    }
   };
 
   return (
@@ -78,7 +80,7 @@ const ListForm = ({ setEditing }) => {
         <div>
           <TextInput
             id="title"
-            placeholder="Lucia 2023"
+            placeholder="Listans titel"
             value={listTitle}
             onChange={(e) => setListTitle(e.target.value)}
             required

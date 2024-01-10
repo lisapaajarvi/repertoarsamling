@@ -29,7 +29,6 @@ const AddSongModal = (props) => {
   };
 
   const handleInputChange = (event) => {
-    console.log(songDetails);
     const { id, value } = event.target;
     setSongDetails({
       ...songDetails,
